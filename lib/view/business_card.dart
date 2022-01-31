@@ -1,3 +1,4 @@
+import 'package:business_card_mg/keys/bitly/accesstoken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shortener/flutter_shortener.dart';
 
@@ -336,9 +337,7 @@ class BusinessCard extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () async {
                         try {
-                          final shortener = BitLyShortener(
-                              accessToken:
-                                  "6380fa02be03f5ede5d8753d41be19efc35b573d");
+                          final shortener = BitLyShortener(accessToken: token);
                           final linkData = await shortener.generateShortLink(
                               longUrl:
                                   'https://cartaodevisitamg.web.app/#/cartaomg/$link');
