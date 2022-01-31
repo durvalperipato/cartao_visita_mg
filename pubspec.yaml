@@ -37,6 +37,13 @@ dependencies:
   url_launcher: ^6.0.18
   whatsapp_unilink: ^2.0.1+1
   font_awesome_flutter: ^9.2.0
+  qr_flutter: ^4.0.0
+  crypto: ^3.0.1
+  fluro: ^2.0.3
+  flutter_shortener: ^0.3.1
+
+  
+  
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +87,7 @@ flutter:
     - family: Comfortaa
       fonts:
         - asset: assets/fonts/Comfortaa-VariableFont_wght.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
