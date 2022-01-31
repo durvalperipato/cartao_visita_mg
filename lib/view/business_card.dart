@@ -1,29 +1,42 @@
-import 'package:business_card_mg/keys/bitly/accesstoken.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_shortener/flutter_shortener.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 import 'qrcode.dart';
 
-class BusinessCard extends StatelessWidget {
+class BusinessCard extends StatefulWidget {
   static const routeName = '/cartaomg';
   final String? link;
 
   const BusinessCard({Key? key, @required this.link}) : super(key: key);
 
   @override
+  State<BusinessCard> createState() => _BusinessCardState();
+}
+
+class _BusinessCardState extends State<BusinessCard> {
+  ImageProvider? avatar;
+
+  @override
+  void initState() {
+    avatar = const AssetImage('assets/images/avatar.png');
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    const double widthsize = double.maxFinite;
+    double heightsize = MediaQuery.of(context).size.height;
+    double maxradius = heightsize < 800 ? 40 : 50;
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
           children: [
             Container(
-              width: double.maxFinite,
-              //height: double.maxFinite,
+              width: widthsize,
+              height: heightsize,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -36,10 +49,8 @@ class BusinessCard extends StatelessWidget {
                 ),
               ),
               child: Container(
-                padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
-                margin: const EdgeInsets.only(
-                  top: 300,
-                ),
+                padding: EdgeInsets.only(
+                    top: heightsize / 3 + 100, left: 20, right: 20, bottom: 20),
                 child: Column(
                   children: [
                     const Text(
@@ -49,7 +60,6 @@ class BusinessCard extends StatelessWidget {
                           color: Colors.white,
                           fontSize: 25,
                           letterSpacing: 2,
-                          //fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
@@ -91,17 +101,17 @@ class BusinessCard extends StatelessWidget {
                             children: [
                               CircleAvatar(
                                 backgroundColor: Colors.white,
-                                maxRadius: 50,
+                                maxRadius: maxradius,
                                 child: CircleAvatar(
-                                  maxRadius: 48,
+                                  maxRadius: maxradius - 2,
                                   child: GestureDetector(
                                     onTap: () => launch("tel://19996121114"),
                                     child: Container(
                                       height: double.maxFinite,
                                       width: double.maxFinite,
-                                      child: const Icon(
+                                      child: Icon(
                                         FontAwesomeIcons.phoneAlt,
-                                        size: 40,
+                                        size: maxradius - 10,
                                         color: Colors.white,
                                       ),
                                       decoration: BoxDecoration(
@@ -131,18 +141,18 @@ class BusinessCard extends StatelessWidget {
                               ),
                               CircleAvatar(
                                 backgroundColor: Colors.white,
-                                maxRadius: 50,
+                                maxRadius: maxradius,
                                 child: CircleAvatar(
-                                  maxRadius: 48,
+                                  maxRadius: maxradius - 2,
                                   child: GestureDetector(
                                     onTap: () => launch(
                                         "mailto:durvalperipatoneto@gmail.com?subject=Cliente X&body=Olá"),
                                     child: Container(
                                       height: double.maxFinite,
                                       width: double.maxFinite,
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.email,
-                                        size: 50,
+                                        size: maxradius - 10,
                                         color: Colors.white,
                                       ),
                                       decoration: BoxDecoration(
@@ -180,18 +190,18 @@ class BusinessCard extends StatelessWidget {
                             children: [
                               CircleAvatar(
                                 backgroundColor: Colors.white,
-                                maxRadius: 50,
+                                maxRadius: maxradius,
                                 child: CircleAvatar(
-                                  maxRadius: 48,
+                                  maxRadius: maxradius - 2,
                                   child: GestureDetector(
                                     onTap: () =>
                                         launch("http:www.margirius.com.br"),
                                     child: Container(
                                       height: double.maxFinite,
                                       width: double.maxFinite,
-                                      child: const Icon(
+                                      child: Icon(
                                         FontAwesomeIcons.weebly,
-                                        size: 50,
+                                        size: maxradius - 10,
                                         color: Colors.white,
                                       ),
                                       decoration: BoxDecoration(
@@ -221,9 +231,9 @@ class BusinessCard extends StatelessWidget {
                               ),
                               CircleAvatar(
                                 backgroundColor: Colors.white,
-                                maxRadius: 50,
+                                maxRadius: maxradius,
                                 child: CircleAvatar(
-                                  maxRadius: 48,
+                                  maxRadius: maxradius - 2,
                                   child: GestureDetector(
                                     onTap: () async {
                                       const message = WhatsAppUnilink(
@@ -237,9 +247,9 @@ class BusinessCard extends StatelessWidget {
                                     child: Container(
                                       height: double.maxFinite,
                                       width: double.maxFinite,
-                                      child: const Icon(
+                                      child: Icon(
                                         FontAwesomeIcons.whatsapp,
-                                        size: 50,
+                                        size: maxradius - 10,
                                         color: Colors.white,
                                       ),
                                       decoration: BoxDecoration(
@@ -279,8 +289,8 @@ class BusinessCard extends StatelessWidget {
             ClipPath(
               clipper: CurvePaint(),
               child: SizedBox(
-                height: 250,
-                width: double.maxFinite,
+                height: heightsize / 3,
+                width: widthsize,
                 child: Image.asset(
                   'assets/images/background.png',
                   fit: BoxFit.fill,
@@ -288,20 +298,33 @@ class BusinessCard extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 170),
-              child: const Align(
+              margin: EdgeInsets.only(top: (heightsize / 3) - 80),
+              child: Align(
                 alignment: Alignment.topCenter,
-                child: CircleAvatar(
-                  maxRadius: 80,
+                child: GestureDetector(
+                  onTap: () async {
+                    Image? result = await ImagePickerWeb.getImageAsWidget();
+
+                    if (result != null) {
+                      setState(() {
+                        avatar = result.image;
+                      });
+                    } else {
+                      avatar = const AssetImage('assets/images/avatar.png');
+                    }
+                  },
                   child: CircleAvatar(
-                    maxRadius: 76,
-                    backgroundImage: AssetImage('assets/images/avatar.png'),
+                    maxRadius: 80,
+                    child: CircleAvatar(
+                      maxRadius: 76,
+                      backgroundImage: avatar,
+                    ),
                   ),
                 ),
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 250),
+              margin: EdgeInsets.only(top: heightsize / 3 + 10),
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -310,7 +333,7 @@ class BusinessCard extends StatelessWidget {
                     maxRadius: 20,
                     child: GestureDetector(
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => QrCodeScreen(link: link),
+                        builder: (context) => QrCodeScreen(link: widget.link),
                       )),
                       child: Container(
                         height: double.maxFinite,
@@ -337,13 +360,14 @@ class BusinessCard extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () async {
                         try {
-                          final shortener = BitLyShortener(accessToken: token);
+                          /*  final shortener = BitLyShortener(accessToken: token);
                           final linkData = await shortener.generateShortLink(
                               longUrl:
-                                  'https://cartaodevisitamg.web.app/#/cartaomg/$link');
+                                  'https://cartaodevisitamg.web.app/#/cartaomg/${widget.link}'); */
                           var url = WhatsAppUnilink(
                             //phoneNumber: '+55-(19)996121114',
-                            text: "Cartão MarGirius: ${linkData.link}",
+                            text:
+                                "Cartão MarGirius: https://cartaodevisitamg.web.app/#/cartaomg/${widget.link} ", //${linkData.link}",
                           );
 
                           await launch('$url');

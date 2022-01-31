@@ -1,13 +1,14 @@
 import 'package:business_card_mg/core/routes.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  /* SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     systemNavigationBarColor:
         Color.fromRGBO(3, 66, 96, 1), // navigation bar color
     statusBarColor: Color.fromRGBO(10, 20, 30, 1), // status bar color
-  )); */
+  ));
   FluroRoutes.setupRouter();
   runApp(const MyApp());
 }
