@@ -36,7 +36,7 @@ class _BusinessCardState extends State<BusinessCard> {
           children: [
             Container(
               width: widthsize,
-              height: heightsize,
+              height: heightsize + 100,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -77,9 +77,9 @@ class _BusinessCardState extends State<BusinessCard> {
                           padding: EdgeInsets.symmetric(
                               horizontal: 10.0, vertical: 5),
                           child: Text(
-                            'GESTÃO DE PRODUTOS',
+                            'ENGENHARIA DE INOVAÇÕES',
                             style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13,
                                 color: Colors.white60,
                                 letterSpacing: 2),
                           ),
